@@ -78,27 +78,39 @@ python app.py
 Visit 👉 http://127.0.0.1:5000
 ```
 
-##🗄️ Database Structure (SQLite)
+## 🗄️ Database Structure (SQLite)
 Tables:
 
 **users** – Stores user credentials and profile info
+
 **vehicles** – Vehicle number, entry time, exit time, user_id
+
 **slots** – Parking slot details and status
+
 **receipts** – Generated after successful parking session
 
 ## 📜 Example Receipt
 Field	Description
+
 Vehicle Number	GJ-01-AB-1234
+
 Slot Code	A1
+
 Entry Time	2025-11-10 10:30 AM
+
 Exit Time	2025-11-10 12:45 PM
+
 Total Time	2 hours 15 min
+
 Amount	₹50
+
 Status	Paid
 
 ## 🔐 User Roles
 Role	Description
+
 User	Can book, view receipts, and manage their profile
+
 Admin	Can manage slots, view all bookings, and access dashboard
 
 ## 📁 Project Structure
