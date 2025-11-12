@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-4">Park Vehicle</h2>
+
+<!-- PARK FORM -->
+<form method="POST" class="mb-4 row g-3">
+  <div class="col-md-6">
+    <label>Vehicle Number</label>
+    <input type="text" name="vehicle_number" class="form-control" required>
+  </div>
+
+  <div class="col-md-6">
+    <label>Select Slot</label>
+    <select name="slot_code" class="form-control" required>
+      <option value="" disabled selected>Select a free slot</option>
+      {% for slot in slots %}
+        {% if slot.status == 'free' %}
+          <option value="{{ slot.code }}">{{ slot.code }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-6">
+    <label>Entry Time</label>
+    <input type="datetime-local" name="entry_time" class="form-control" required>
+  </div>
+
+  <div class="col-md-6">
+    <label>Exit Time (Optional)</label>
+    <input type="datetime-local" name="exit_time" class="form-control">
+  </div>
+  
+  <div class="col-12 text-center mt-4">
+      <button type="submit" class="btn btn-success">
+        <i class="fas fa-parking me-2"></i>
+        Assign Vehicle
+      </button>
+    </div>
+</form>
+
+<hr>
+
+<!-- PARKING LOT GRID -->
+<h4>Parking Slots</h4>
+<div class="parking-areas" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; max-width: 100%;">
+  {% for i in range(1, 11) %}
+    <div class="parking-area" style="border: 2px solid #e5e7eb; border-radius: 8px; padding: 8px; background: #ffffff;">
+      <div class="area-label" style="text-align: center; font-size: 0.75rem; font-weight: 600; color: #242830ff; margin-bottom: 6px;">
+        SLOT {{ i }}
+      </div>
+      <div class="area-slots" style="display: flex; gap: 4px;">
+        {% for sub in ['A', 'B'] %}
+          {% set slot_code = i|string + sub %}
+          {% set slot = slots|selectattr("code", "equalto", slot_code)|first %}
+          {% if slot and slot.status == 'occupied' %}
+            <a href="{{ url_for('receipt_by_slot', slot_code=slot.code) }}" 
+               class="btn btn-danger" id="slot-{{ slot.code }}"
+               style="flex: 1; min-height: 40px; font-size: 0.875rem; text-decoration: none;">
+              {{ slot.code }}
+            </a>
+          {% elif slot %}
+            <span class="btn btn-success disabled" id="slot-{{ slot.code }}"
+                  style="flex: 1; min-height: 40px; font-size: 0.875rem;">
+              {{ slot.code }}
+            </span>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+
+
+{% endblock %}

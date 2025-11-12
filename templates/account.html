@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>My Account</h2>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <p><strong>Username:</strong> {{ user.username }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Role:</strong> {{ user.role }}</p>
+    </div>
+  </div>
+
+  <h4>Change Password</h4>
+  <form method="POST" action="{{ url_for('change_password') }}">
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label>Old Password</label>
+        <input type="password" name="old_password" class="form-control" required>
+      </div>
+      <div class="col-md-4">
+        <label>New Password</label>
+        <input type="password" name="new_password" class="form-control" required>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Change Password</button>
+  </form>
+
+  <div class="mt-4">
+    <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+  </div>
+</div>
+{% endblock %}

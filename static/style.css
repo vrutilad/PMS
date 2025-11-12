@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f3f4f6;
+}
+.container {
+    max-width: 900px;
+    padding: 2rem;
+}
+.card {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    transition: all 0.2s;
+}
+.form-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-primary {
+    background-color: #3b82f6;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #2563eb;
+}
+
+.navbar-nav .nav-link {
+    color: #000000 !important;  /* Change this color value */
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    margin: 0 0.25rem;
+    padding: 0.5rem 1rem !important;
+}
+
+.navbar-nav .nav-link:hover {
+    background: rgba(30, 64, 175, 0.1);
+    color: #1e40af !important;
+}
+.slot-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    padding: 1rem;
+    background-color: #e5e7eb;
+    border-radius: 0.75rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.navbar-text {
+    color: #000000 !important;  /* Change this color for the welcome text */
+    font-weight: 500;
+    
+}
+
+
+.navbar-text .badge {
+    background-color: #1e40af !important;
+    color: white !important;
+    font-size: 0.9rem !important;        /* Increase from default 0.75rem */
+    padding: 0.4rem 0.8rem !important;   /* Increase padding */
+    border-radius: 8px !important;       /* Slightly larger border radius */
+    font-weight: 600 !important;
+}
+.slot {
+    width: 100%;
+    height: 4rem;
+    background-color: #d1d5db;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4b5563;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+.slot:hover {
+    transform: translateY(-2px);
+    background-color: #a1a1aa;
+}
+.slot.occupied {
+    background-color: #ef4444;
+    color: white;
+    cursor: not-allowed;
+}
+.slot.selected {
+    border: 2px solid #3b82f6;
+    transform: scale(1.05);
+}
+@media (max-width: 768px) {
+    .slot-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+.alert {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+.alert.success { background-color: #d1fae5; color: #065f46; }
+.alert.error { background-color: #fee2e2; color: #991b1b; }

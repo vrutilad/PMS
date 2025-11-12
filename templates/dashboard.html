@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Admin Dashboard</h2>
+    <button class="btn btn-outline-primary" onclick="refreshDashboard()">
+        🔄 Refresh
+    </button>
+</div>
+
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body text-center">
+                <h4>{{ stats.total_slots }}</h4>
+                <p class="mb-0">Total Slots</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body text-center">
+                <h4>{{ stats.available }}</h4>
+                <p class="mb-0">Available</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-danger text-white">
+            <div class="card-body text-center">
+                <h4>{{ stats.occupied }}</h4>
+                <p class="mb-0">Occupied</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark">
+            <div class="card-body text-center">
+                <h4 id="revenue-amount">₹{{ "%.2f"|format(stats.revenue) }}</h4>
+                <p class="mb-0">Total Revenue</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Payments -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Recent Payments</h5>
+            </div>
+            <div class="card-body">
+                {% if stats.recent_payments %}
+                    <div id="recent-payments">
+                        {% for payment in stats.recent_payments %}
+                        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                            <div>
+                                <strong>Slot {{ payment.slot }}</strong><br>
+                                <small class="text-muted">{{ payment.vehicle }}</small>
+                            </div>
+                            <div class="text-end">
+                                <strong class="text-success">₹{{ payment.amount }}</strong><br>
+                                <small class="text-muted">{{ payment.time }}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center">No recent payments</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('park') }}" class="btn btn-primary">
+                        🚗 Park New Vehicle
+                    </a>
+                    <button class="btn btn-info" onclick="viewAllSlots()">
+                        📊 View All Slots Status
+                    </button>
+                    <button class="btn btn-success" onclick="exportData()">
+                        📥 Export Revenue Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Live Updates Modal -->
+<div class="modal fade" id="paymentNotificationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h6 class="modal-title">Payment Received!</h6>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h4 class="text-success">💰</h4>
+                <p id="payment-message"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Auto-refresh dashboard every 10 seconds
+let autoRefreshInterval = setInterval(refreshDashboard, 10000);
+
+function refreshDashboard() {
+    location.reload();
+}
+
+function viewAllSlots() {
+    // This could open a modal or redirect to a slots view
+    alert('View all slots feature - to be implemented');
+}
+
+function exportData() {
+    // This could export CSV or PDF
+    alert('Export data feature - to be implemented');
+}
+
+// Listen for payment notifications (this would be used with WebSocket in a real app)
+function showPaymentNotification(message) {
+    document.getElementById('payment-message').textContent = message;
+    var modal = new bootstrap.Modal(document.getElementById('paymentNotificationModal'));
+    modal.show();
+}
+
+// Example of showing notification (you can call this from payment confirmation)
+// showPaymentNotification('₹150 received for Slot 1A');
+</script>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center mt-5">
+  <h1>Welcome to Parking Management System</h1>
+  {% if not session.get('user_id') %}
+  <a href="{{ url_for('login') }}" class="btn btn-primary mt-3">Login</a>
+  <a href="{{ url_for('register') }}" class="btn btn-secondary mt-3">Register</a>
+  {% else %}
+  <a href="{{ url_for('park') }}" class="btn btn-success mt-3">Park Vehicle</a>
+  {% endif %}
+</div>
+{% endblock %}
